@@ -1,0 +1,12 @@
+{
+    "name": "dummy-app",
+    "version": "1.0.0",
+    "description": "A minimalist Node.js app for CI/CD testing",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "node test.js"
+    },
+    "author": "",
+    "license": "ISC"
+}
