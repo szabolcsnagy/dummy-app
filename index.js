@@ -1,20 +1,21 @@
 const http = require('http');
+const redisClient = require('./redis-client');
 
 const port = process.env.PORT || 3000;
 const message = process.env.APP_MESSAGE || 'Hello from the dummy app!';
 const bgColor = process.env.BG_COLOR || 'white';
 
-let visitorCount = 0;
-
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   if (req.url === '/favicon.ico') {
     res.statusCode = 204;
     res.end();
     return;
   }
 
+  let visitorCount = await redisClient.getVisitorCount();
+
   if (req.url === '/') {
-    visitorCount++;
+    visitorCount = await redisClient.incrementVisitorCount();
   }
 
   res.statusCode = 200;
