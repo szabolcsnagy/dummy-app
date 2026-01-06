@@ -4,10 +4,22 @@ const port = process.env.PORT || 3000;
 const message = process.env.APP_MESSAGE || 'Hello from the dummy app!';
 const bgColor = process.env.BG_COLOR || 'white';
 
+let visitorCount = 0;
+
 const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.end(`
+  if (req.url === '/favicon.ico') {
+    res.statusCode = 204;
+    res.end();
+    return;
+  }
+
+  if (req.url === '/') {
+    visitorCount++;
+  }
+
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html');
+  res.end(`
     <!DOCTYPE html>
     <html>
       <head>
@@ -34,6 +46,7 @@ const server = http.createServer((req, res) => {
         <div class="content">
           <h1>${message}</h1>
           <p>Background color: <strong>${bgColor}</strong></p>
+          <p>You are visitor number: <strong>${visitorCount}</strong></p>
         </div>
       </body>
     </html>
@@ -41,8 +54,8 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, () => {
-    console.log(`Server running at port ${port}`);
-    console.log(`Response message: ${message}`);
-    console.log(`Background color: ${bgColor}`);
+  console.log(`Server running at port ${port}`);
+  console.log(`Response message: ${message}`);
+  console.log(`Background color: ${bgColor}`);
 });
 
