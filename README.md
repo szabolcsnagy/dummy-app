@@ -4,6 +4,10 @@ This is a minimalist Node.js application optimized for CI/CD pipeline testing.
 
 ## Features
 
+## Prerequisites
+
+- **Docker**: Required to run the Redis database for local development.
+
 ### Node.js Application
 - Uses the built-in `http` module (no dependencies required).
 - Supports `PORT` and `APP_MESSAGE` environment variables.
@@ -29,13 +33,38 @@ BG_COLOR=green npm start
 
 
 ### Run Locally
+
 ```bash
 npm install
+npm dev
+```
+
+### Development Mode
+
+To start the application in development mode with a local Redis instance:
+
+```bash
+npm run dev
+```
+
+This script will:
+1. Start a Redis container using Docker.
+2. Start the application with `nodemon` for automatic restarts on code changes.
+3. Connect the application to the local Redis instance.
+
+
+### Run production mode locally
+Start the redis container separately and then start the application.
+
+```bash
+npm run redis:start
 npm start
 ```
 
 ### Run Tests
 ```bash
+# Start redis if it is not running
+npm run redis:start
 npm test
 ```
 

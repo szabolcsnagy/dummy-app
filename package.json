@@ -5,11 +5,17 @@
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
-        "test": "node test.js"
+        "test": "REDIS_URL=redis://localhost:6379 node test.js",
+        "redis:start": "docker run -d --rm --name db -p 127.0.0.1:6379:6379 redis:alpine",
+        "redis:stop": "docker stop db",
+        "dev": "npm run redis:start && REDIS_URL=redis://localhost:6379 nodemon index.js"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
         "redis": "^4.6.10"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.11"
     }
 }
