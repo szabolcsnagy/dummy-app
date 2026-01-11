@@ -17,6 +17,8 @@ const server = http.createServer(async (req, res) => {
   if (req.url === '/') {
     visitorCount = await redisClient.incrementVisitorCount();
   }
+  // Log visitor count so we can observe it in the deployment logs
+  console.log(`[${new Date().toLocaleString()}] Visitor count: ${visitorCount}`);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html');
